@@ -1,17 +1,20 @@
 package com.burningcastle.adventofcode.year2021.days;
 
-import com.burningcastle.adventofcode.year2021.Day;
+import com.burningcastle.adventofcode.year2021.AbstractDay;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Day1 implements Day {
+public class Day1 extends AbstractDay {
+
+    public Day1() {
+        super("src/resources/Day1.txt");
+    }
 
     @Override
     public void run() {
-        String fileName = "src/resources/Day1.txt";
-        List<Integer> input = readFileNumbers(fileName);
+        List<Integer> input = readFileNumbers();
 
         // Part 1
         int count = countIncreases(input);
@@ -41,8 +44,8 @@ public class Day1 implements Day {
         return result;
     }
 
-    private List<Integer> readFileNumbers(String fileName) {
-        return readFile(fileName).stream().map(Integer::parseInt).collect(Collectors.toList());
+    private List<Integer> readFileNumbers() {
+        return readFile().stream().map(Integer::parseInt).collect(Collectors.toList());
     }
 
 }
