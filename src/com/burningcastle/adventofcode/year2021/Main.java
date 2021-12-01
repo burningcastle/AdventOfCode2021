@@ -16,7 +16,7 @@ public class Main {
             } catch (ClassNotFoundException e) {
                 System.out.println("Day " + i + " not yet implemented.");
             } catch (NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
-                System.out.println("A black magic error occurred while trying to run Day " + i);
+                System.err.println("A black magic error occurred while trying to run Day " + i);
             }
             System.out.println();
         }
