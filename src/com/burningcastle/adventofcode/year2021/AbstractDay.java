@@ -14,7 +14,7 @@ public abstract class AbstractDay implements Day {
         this.fileName = fileName;
     }
 
-    protected List<String> readFile() {
+    protected List<String> readLinesFromFile() {
         List<String> result = null;
         try (BufferedReader in = new BufferedReader(new FileReader(fileName))) {
             result = in.lines().collect(Collectors.toList());

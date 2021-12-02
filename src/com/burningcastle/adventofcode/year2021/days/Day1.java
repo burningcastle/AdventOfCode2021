@@ -45,7 +45,7 @@ public class Day1 extends AbstractDay {
     }
 
     private List<Integer> readFileNumbers() {
-        return readFile().stream().map(Integer::parseInt).collect(Collectors.toList());
+        return readLinesFromFile().stream().map(Integer::parseInt).collect(Collectors.toList());
     }
 
 }
