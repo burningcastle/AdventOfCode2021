@@ -42,6 +42,7 @@ public class Day7 extends AbstractDay {
     private int getOptimalFuelCosts2(List<Integer> crabPositions) {
         float avg = getAverage(crabPositions);
         int targetPos = (int) avg; // needs to be rounded down for actual input, idk why, is my math wrong? 461.557 --> 461
+        // here is a paper that explains it :D https://www.reddit.com/r/adventofcode/comments/rawxad/2021_day_7_part_2_i_wrote_a_paper_on_todays/
 //        int targetPos = (int) Math.ceil(avg); // rounding needed for example input 4.9 --> 5
         return calculateFuelCostWithIncreasingRate(targetPos, crabPositions);
     }

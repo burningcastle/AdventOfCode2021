@@ -108,19 +108,19 @@ public class Day8 extends AbstractDay {
     }
 
     private void reduceCandidates(Map<String, List<String>> candidatesPerSegment, List<String> segmentsFromInput, List<String> realSegments) {
-        // Example:  reduceCandidates(candidatesList, {"d", "f"}, {"a", "b"})
-        // we know that d and f in the signals from the input are in reality a and b
+        // Example:  reduceCandidates(candidatesList, {"d", "b"}, {"c", "f"})
+        // we know that d and b in the signals from the input are in reality c and f (--> 1)
 
-        // loop through all real segments from a to f (and update their candidates)
+        // loop through all real segments from a to g (and update their candidates)
         for (Map.Entry<String, List<String>> segmentWithCandidates : candidatesPerSegment.entrySet()) {
             if (!realSegments.contains(segmentWithCandidates.getKey())) {
-                // loop case: it is not a and not b
-                // --> delete d and f from the candidates lists
+                // loop case: it is not c and not f
+                // --> delete d and b from the candidates lists
                 segmentWithCandidates.getValue().removeAll(segmentsFromInput);
             } else {
-                // loop case: it is a or b
-                // --> a and b might each be d or f
-                // --> delete every other possibility (i.e. a,b,c,e) from their candidate list
+                // loop case: it is c or f
+                // --> c and f might each be d or b
+                // --> delete every other possibility (i.e. a,c,e,f,g) from their candidate list
                 List<String> candidates = segmentWithCandidates.getValue();
                 List<String> allSegmentsWithOutCandidates = subtract(this.allSegments, segmentsFromInput);
                 candidates.removeAll(allSegmentsWithOutCandidates);
