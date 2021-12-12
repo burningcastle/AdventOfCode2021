@@ -1,6 +1,7 @@
 package com.burningcastle.adventofcode.year2021.days;
 
 import com.burningcastle.adventofcode.year2021.AbstractDay;
+import com.burningcastle.adventofcode.year2021.util.Point;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -18,7 +19,7 @@ public class Day9 extends AbstractDay {
 
         // Part 1
         List<Point> lowPoints = getLowPoints(heightmap);
-        int sumOfRiskLevels = lowPoints.stream().mapToInt(p -> p.value + 1).sum();
+        int sumOfRiskLevels = lowPoints.stream().mapToInt(p -> p.getValue() + 1).sum();
         System.out.println("Part 1: " + sumOfRiskLevels); // 539
 
         // Part 2
@@ -34,7 +35,7 @@ public class Day9 extends AbstractDay {
 
     private Set<Point> getBasinForPoint(int[][] heightmap, Point lowPoint) {
         List<Point> neighbors = getNeighborsInHeightmap(lowPoint, heightmap);
-        List<Point> membersOfThisBasin = neighbors.stream().filter(neighbor -> neighbor.value > lowPoint.value && neighbor.value != 9).collect(Collectors.toList());
+        List<Point> membersOfThisBasin = neighbors.stream().filter(neighbor -> neighbor.getValue() > lowPoint.getValue() && neighbor.getValue() != 9).collect(Collectors.toList());
         Set<Point> basin = new HashSet<>(membersOfThisBasin);
         membersOfThisBasin.forEach(member -> basin.addAll(getBasinForPoint(heightmap, member)));
         basin.add(lowPoint);
@@ -48,7 +49,7 @@ public class Day9 extends AbstractDay {
                 int value = heightmap[row][col];
                 Point point = new Point(row, col, value);
                 List<Point> neighbors = getNeighborsInHeightmap(point, heightmap);
-                boolean isLowPoint = neighbors.stream().allMatch(neighbor -> point.value < neighbor.value);
+                boolean isLowPoint = neighbors.stream().allMatch(neighbor -> point.getValue() < neighbor.getValue());
                 if (isLowPoint) {
                     result.add(point);
                 }
@@ -59,8 +60,8 @@ public class Day9 extends AbstractDay {
 
     private List<Point> getNeighborsInHeightmap(Point point, int[][] heightmap) {
         List<Point> neighbors = new ArrayList<>();
-        int x = point.x;
-        int y = point.y;
+        int x = point.getX();
+        int y = point.getY();
         Point top = x > 0 ? new Point(x - 1, y, heightmap[x - 1][y]) : null;
         Point left = y > 0 ? new Point(x, y - 1, heightmap[x][y - 1]) : null;
         Point right = y < heightmap[x].length - 1 ? new Point(x, y + 1, heightmap[x][y + 1]) : null;
@@ -72,28 +73,4 @@ public class Day9 extends AbstractDay {
         return neighbors;
     }
 
-    static class Point {
-        private final int x;
-        private final int y;
-        private final int value;
-
-        public Point(int x, int y, int value) {
-            this.x = x;
-            this.y = y;
-            this.value = value;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            Point point = (Point) o;
-            return x == point.x && y == point.y;
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(x, y);
-        }
-    }
 }

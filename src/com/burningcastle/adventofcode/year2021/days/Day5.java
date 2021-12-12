@@ -1,6 +1,8 @@
 package com.burningcastle.adventofcode.year2021.days;
 
+
 import com.burningcastle.adventofcode.year2021.AbstractDay;
+import com.burningcastle.adventofcode.year2021.util.Point;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -19,7 +21,7 @@ public class Day5 extends AbstractDay {
         List<Point[]> allLines = input.stream().map(line -> Arrays.stream(line.split(" -> ")).map(Point::new).toArray(Point[]::new)).collect(Collectors.toList());
 
         // Part 1
-        List<Point[]> horizontalAndVerticalLines = allLines.stream().filter(line -> line[0].x == line[1].x || line[0].y == line[1].y).collect(Collectors.toList());
+        List<Point[]> horizontalAndVerticalLines = allLines.stream().filter(line -> line[0].getX() == line[1].getX() || line[0].getY() == line[1].getY()).collect(Collectors.toList());
         System.out.println("Part 1: " + getNumberOfMostDangerousAreas(horizontalAndVerticalLines)); // 5124
 
         // Part 2
@@ -48,21 +50,21 @@ public class Day5 extends AbstractDay {
         List<Point> result = new ArrayList<>();
         result.add(start);
 
-        Point tmp = new Point(start.x, start.y);
+        Point tmp = new Point(start.getX(), start.getY());
         while (!tmp.equals(end)) {
-            int newX = tmp.x;
-            int newY = tmp.y;
+            int newX = tmp.getX();
+            int newY = tmp.getY();
 
-            if (end.x - tmp.x < 0) {
+            if (end.getX() - tmp.getX() < 0) {
                 newX--;
             }
-            if (end.x - tmp.x > 0) {
+            if (end.getX() - tmp.getX() > 0) {
                 newX++;
             }
-            if (end.y - tmp.y < 0) {
+            if (end.getY() - tmp.getY() < 0) {
                 newY--;
             }
-            if (end.y - tmp.y > 0) {
+            if (end.getY() - tmp.getY() > 0) {
                 newY++;
             }
 
@@ -73,34 +75,4 @@ public class Day5 extends AbstractDay {
         return result;
     }
 
-
-    static class Point {
-        private final int x;
-        private final int y;
-
-        // create point from String e.g. "51,119"
-        public Point(String pointAsString) {
-            int indexOfSeparator = pointAsString.indexOf(",");
-            this.x = Integer.parseInt(pointAsString.substring(0, indexOfSeparator));
-            this.y = Integer.parseInt(pointAsString.substring(indexOfSeparator + 1));
-        }
-
-        public Point(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            Point point = (Point) o;
-            return x == point.x && y == point.y;
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(x, y);
-        }
-    }
 }
