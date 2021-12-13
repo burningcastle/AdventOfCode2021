@@ -10,7 +10,7 @@ public abstract class AbstractDay implements Day {
 
     private final String fileName;
 
-    public AbstractDay(String fileName) {
+    protected AbstractDay(String fileName) {
         this.fileName = fileName;
     }
 
@@ -24,4 +24,12 @@ public abstract class AbstractDay implements Day {
         return result;
     }
 
+    @Override
+    public void runTimed() {
+        long startTime = System.nanoTime();
+        run();
+        long endTime = System.nanoTime();
+        long duration = (endTime - startTime) / 1000000;
+        System.out.println("-> " + duration + "ms");
+    }
 }

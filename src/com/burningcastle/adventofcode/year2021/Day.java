@@ -4,4 +4,6 @@ public interface Day {
 
     void run();
 
+    void runTimed();
+
 }
